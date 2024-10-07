@@ -5,7 +5,7 @@ import { People } from './People';
 
 const httpOptions ={
   headers: new HttpHeaders({
-    'Content-Type' : 'application;json'
+    'Content-Type' : 'application/json'
   })
 }
 
@@ -14,7 +14,7 @@ const httpOptions ={
 })
 export class PeoplesService {
 
-  url = 'https://localhost:5151/api/peoples';
+  url = 'http://localhost:5151/api/peoples';
 
 
   constructor(private http: HttpClient) { }
