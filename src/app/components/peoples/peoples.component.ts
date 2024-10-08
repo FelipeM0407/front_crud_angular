@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Form, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { People } from '../../People';
 import { PeoplesService } from '../../peoples.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 
 
@@ -17,11 +18,17 @@ export class PeoplesComponent implements OnInit {
   form: any;
   titleForm: string = '';
   peoples: People[] = [];
+  peopleName : string = '';
+  peopleId? : number;
 
   visibilityTable: boolean = true;
   visibilityForm: boolean = false;
 
-  constructor(private peoplesService: PeoplesService) { }
+  modalRef?: BsModalRef;
+
+  constructor(private peoplesService: PeoplesService,
+    private modalService : BsModalService
+  ) { }
 
   ngOnInit(): void {
     this.peoplesService.GetAll().subscribe(result => {
@@ -101,5 +108,21 @@ export class PeoplesComponent implements OnInit {
       });
     });
 
+  }
+
+  ShowConfirmationExclude(peopleId : number, peopleName : string, contentModal : TemplateRef<any>) : void{
+    this.modalRef = this.modalService.show(contentModal);
+    this.peopleId = peopleId;
+    this.peopleName = peopleName;
+  };
+
+  DeletePeople(peopleId : number){
+    this.peoplesService.DeletePeople(peopleId).subscribe(result => {
+      this.modalRef?.hide();
+      alert("People deleted!");
+      this.peoplesService.GetAll().subscribe(records => {
+        this.peoples = records;
+      });
+    });
   }
 }
