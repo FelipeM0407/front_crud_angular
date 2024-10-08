@@ -27,15 +27,18 @@ export class PeoplesService {
     const apiUrl = `${this.url}/${peopleId}`;
 
     return this.http.get<People>(apiUrl);
-  }
+  };
 
-  SavePeple(people: People) : Observable<any>{
+  SavePeople(people: People) : Observable<any>{
     return this.http.post<People>(this.url, people, httpOptions);
-  }
+  };
+
+  UpdatePeople(people: People) : Observable<any> {
+    return this.http.put<People>(this.url, people, httpOptions);
+  };
 
   DeletePeople(peopleId: number) : Observable<any>{
     const apiUrl = `${this.url}/${peopleId}`;
-
     return this.http.delete<number>(apiUrl, httpOptions);
   }
 }

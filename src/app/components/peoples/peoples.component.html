@@ -1,40 +1,74 @@
-<div class="container p-5">
-    <div class="row">
-      <div class="col-6 border border-light rounded p-5 shadow" *ngIf="form">
-        <h6>{{ titleForm }}</h6>
-        <hr />
-  
-        <form [formGroup]="form" (ngSubmit)="SendForm()">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control form-control-sm" formControlName="name" />
-          </div>
-  
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" class="form-control form-control-sm" formControlName="lastName" />
-          </div>
-  
-          <div class="form-group">
-            <label>Years</label>
-            <input type="number" class="form-control form-control-sm" formControlName="years" />
-          </div>
-  
-          <div class="form-group">
-            <label>Profession</label>
-            <input type="text" class="form-control form-control-sm" formControlName="profession" />
-          </div>
-  
-          <div class="mt-2 d-flex justify-content-start">
-            <button type="submit" class="btn btn-sm btn-outline-secondary mr-2">
-              Save
-            </button>
-            <button type="button" class="btn btn-sm btn-light">Back</button>
-          </div>
-  
-        </form>
-  
-      </div>
+<div class="container p-5" *ngIf="visibilityTable">
+  <div class="border boder-light rounded p-5">
+    <div>
+      <button type="button" class="btn btn-sm btn-secondary" (click)="ShowFormRegister()">
+        New People
+      </button>
+    </div>
+
+
+    <hr />
+
+    <table class="table table-striped table-hover table-sm" *ngIf="peoples">
+      <tr class="thead-light">
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Years</th>
+        <th>Profession</th>
+        <th>Actions</th>
+      </tr>
+
+      <tr *ngFor="let people of peoples">
+        <td>{{people.name}}</td>
+        <td>{{people.lastName}}</td>
+        <td>{{people.years}}</td>
+        <td>{{people.profession}}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-outline-info" (click)="people.peopleId ? ShowUpdateForm(people.peopleId) : null">Update</button>
+          <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div class="container p-5" *ngIf="visibilityForm">
+  <div class="row">
+    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="form">
+      <h6>{{ titleForm }}</h6>
+      <hr />
+
+      <form [formGroup]="form" (ngSubmit)="SendForm()">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control form-control-sm" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-control form-control-sm" formControlName="lastName" />
+        </div>
+
+        <div class="form-group">
+          <label>Years</label>
+          <input type="number" class="form-control form-control-sm" formControlName="years" />
+        </div>
+
+        <div class="form-group">
+          <label>Profession</label>
+          <input type="text" class="form-control form-control-sm" formControlName="profession" />
+        </div>
+
+        <div class="mt-2 d-flex justify-content-start">
+          <button type="submit" class="btn btn-sm btn-outline-secondary mr-2">
+            Save
+          </button>
+          <button type="button" class="btn btn-sm btn-light" (click)="Back()">Back</button>
+        </div>
+
+      </form>
+
     </div>
   </div>
-  
+</div>
